@@ -1,3 +1,4 @@
-sample_name,mag_dir,illumina_fwd,illumina_rev
-uhgg,/home/lam4003/bin/camp_mag-qc/test_data/uhgg,/home/lam4003/bin/camp_mag-qc/test_data/uhgg_1.fastq.gz,/home/lam4003/bin/camp_mag-qc/test_data/uhgg_2.fastq.gz
+sample_name,illumina_ctgs,illumina_fwd,illumina_rev
+uhgg_metaspades,/path/to/camp_binning/test_data/uhgg.metaspades.fasta,/path/to/camp_binning/test_data/uhgg_1.fastq.gz,/path/to/camp_binning/test_data/uhgg_2.fastq.gz
+uhgg_megahit,/path/to/camp_binning/test_data/uhgg.megahit.fasta,/path/to/camp_binning/test_data/uhgg_1.fastq.gz,/path/to/camp_binning/test_data/uhgg_2.fastq.gz
 

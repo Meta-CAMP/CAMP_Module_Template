@@ -101,3 +101,5 @@ cookiecutter-pypackage-env/
 # IDE settings
 .vscode/
 
+# Random
+*.DS_Store

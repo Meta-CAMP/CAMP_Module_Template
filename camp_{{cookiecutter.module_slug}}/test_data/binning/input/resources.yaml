@@ -1,25 +1,36 @@
 #'''Command-line usage resource config.'''#
 
 
-# --- checkm --- #
+# --- map_sort --- #
 
-checkm_threads: 30
-checkm_mem_mb: 80000
-
-
-# --- gtdbtk --- #
-
-gtdbtk_threads: 30
-gtdbtk_mem_mb: 50000
+map_sort_threads: 10
+map_sort_mem_mb: 20000
 
 
-# --- mapsort --- #
+# --- metabat2_binning --- #
 
-mapsort_threads: 20
-mapsort_mem_mb: 10000
+metabat2_binning_threads: 10
+metabat2_binning_mem_mb: 20000
 
 
-# --- quast --- #
+# --- concoct_binning --- #
 
-quast_threads: 20
-quast_mem_mb: 50000
+concoct_binning_mem_mb: 20000
+
+
+# --- semibin_binning --- #
+
+semibin_binning_threads: 10
+semibin_binning_mem_mb: 20000
+
+
+# --- maxbin2_binning --- #
+
+maxbin2_binning_threads: 10
+maxbin2_binning_mem_mb: 20000
+
+
+# --- dastool_refinement --- #
+
+dastool_refinement_threads: 10
+dastool_refinement_mem_mb: 20000

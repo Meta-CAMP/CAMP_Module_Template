@@ -1,6 +1,6 @@
 # CAMP Module Template
 
-[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.5.5-brightgreen)
+[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.7.0-brightgreen)
 
 ## Overview
 
@@ -81,20 +81,15 @@ conda activate module
 
 1. Add your module's basic installation and running instructions to the `README.md`. Then, add complete documentation to the [CAMP documentation repo](https://github.com/MetaSUB-CAMP/camp-documentation).
 
-2. Make the default conda environment, and run the module once through to make sure everything works using the test data in `test_data/`. If none of the test data available is appropriate, please contact us so we can coordinate the addition of new tst data. 
-    - Make copies of `config/parameters.yaml` and `configs/resources.yaml` that are appropriate for the test data and add them to the `test_data/` directory.
+2. Make the default conda environment, and after setting the appropriate input from `test_data/` in `test_data/samples.csv`, and parameters/resources in `test_data/parameters.yaml` and `test_data/resources.yaml` respectively, run the module once through to make sure everything works. 
+    - If none of the test data available is appropriate, please contact us so we can coordinate the addition of new tst data. 
     - The default number of cores available to Snakemake is 1 which is enough for test data, but should probably be adjusted to 10+ for a real dataset.
     - Relative or absolute paths to the Snakefile and/or the working directory (if you're running elsewhere) are accepted!
 ```Bash
-    python /path/to/camp_module/workflow/module.py \
-    -d /path/to/camp_module/test_data/test_out \
-    -s /path/to/camp_module/test_data/samples.csv \
-    -p /path/to/camp_module/test_data/parameters.yaml \
-    -r /path/to/camp_module/test_data/resources.yaml \
-    --cores 20
+python /path/to/camp_module/workflow/module.py test --cores 40
 ```
 
-3. Trim down the data in `test_data/` so that only the necessary and sufficient input data are present (along with `samples.csv`, `parameters.yaml`, and `resources.yaml`).
+3. Trim down the data in `test_data/` so that only the necessary and sufficient input data are present.
 
 4. Remove any test data files that are larger than 100MB because Github repos will not allow those to be pulled to remote. 
 
@@ -107,3 +102,8 @@ The `configs/conda/` directory also contains the YAML that sets up a dataviz env
 If you want your module integrated into the main CAMP module, please contact [Lauren](mailto:lam4003@med.cornell.edu) or [Braden](btt4001@med.cornell.edu)!
 - Please make it clear what your module intends to do by including a summary ex. "Module A Release X.Y.Z, which does B to input C and outputs D").
 
+## Credits
+
+- This package was created with [Cookiecutter](https://github.com/cookiecutter/cookiecutter>) as a simplified version of the [project template](https://github.com/audreyr/cookiecutter-pypackage>).
+- Free software: MIT
+- Documentation: Coming soon!

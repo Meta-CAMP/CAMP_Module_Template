@@ -4,6 +4,10 @@
 ext: '/home/lam4003/bin/camp_mag-qc/workflow/ext'
 
 
+# --- checkm --- #
+
+checkm2_db: '/workdir/lam4003/Databases/CheckM2_05232023/uniref100.KO.1.dmnd'
+
 # --- cmseq --- #
 
 minqual:    30
