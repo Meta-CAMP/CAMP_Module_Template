@@ -23,7 +23,7 @@ def extract_from_gzip(ap, out):
 def ingest_samples(samples, tmp):
     df = pd.read_csv(samples, header = 0, index_col = 0) # name, ctgs, fwd, rev
     s = list(df.index)
-    lst = df.values.tolist()
+    lst = [str(l) for l in df.values.tolist()]
     for i,l in enumerate(lst):
         # Symlink your original data to the temporary directory
         # if not exists(join(tmp, s[i] + '.fasta')):
@@ -63,11 +63,12 @@ class Workflow_Dirs:
 
 
 def cleanup_files(work_dir, df):
-    # smps = list(df.index)
-    # for d in dirs.OUT:
-    #     for s in smps:
-    #         os.remove(join(work_dir, '{{ cookiecutter.module_slug }}', d, file_to_remove))
-    #         os.remove(join(work_dir, '{{ cookiecutter.module_slug }}', d, file_to_remove))
+    pass
+    smps = list(df.index)
+    for d in []: # Add directories to clean up
+        for s in smps:
+            os.remove(join(work_dir, '{{ cookiecutter.module_slug }}', d, file_to_remove))
+            os.remove(join(work_dir, '{{ cookiecutter.module_slug }}', d, file_to_remove))
 
 
 def print_cmds(f):
