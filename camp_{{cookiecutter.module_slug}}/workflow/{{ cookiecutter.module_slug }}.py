@@ -4,6 +4,7 @@
 import click
 from click_default_group import DefaultGroup
 from contextlib import redirect_stdout
+from io import StringIO
 from os import getcwd, makedirs
 from os.path import abspath, dirname, exists, join
 import pandas as pd
@@ -122,7 +123,7 @@ def run(cores, work_dir, samples, parameters, resources, slurm, dry_run, unlock,
         # Set up the directory structure skeleton
         Workflow_Dirs(work_dir, '{{ cookiecutter.module_slug }}')
         # Print the dry run standard out
-        f = io.StringIO()
+        f = StringIO()
         with redirect_stdout(f):
             cmd_line(workflow, work_dir, samples, env_yamls, pyaml, ryaml,   \
                      cores, env_dir, True, False)
