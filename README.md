@@ -1,6 +1,6 @@
 # CAMP Module Template
 
-[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.7.4-brightgreen)
+[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.7.5-brightgreen)
 
 ## Overview
 
@@ -15,6 +15,9 @@ The Cookiecutter template for all CAMP (**C**ore **A**nalysis **M**etagenomics *
 * Integrated Slurm (HPC cluster job submission) and command-line modes
 * Included test metagenomics sequencing dataset for installation checking
 * Pre-configured version bumping with a single command
+
+> [!TIP]
+> All databases used in CAMP modules will also be available for download on Zenodo (link TBD).
 
 ## Making a New Module
 
