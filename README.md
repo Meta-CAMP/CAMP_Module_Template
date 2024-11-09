@@ -1,6 +1,6 @@
 # CAMP Module Template
 
-[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.7.5-brightgreen)
+[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.7.6-brightgreen)
 
 ## Overview
 
@@ -25,9 +25,11 @@ These instructions are only for developers that want to create an module for a *
 
 ### Part 1: Setting up the Module Barebones
 
-1. Have [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html>) and Cookiecutter (version 1.4.0 or higher) installed in some environment. 
-
+1. Have [conda](https://github.com/conda-forge/miniforge>) and Cookiecutter (version 1.4.0 or higher) installed on your system. We recommend `miniforge`, which is a minimal conda installer that, by default, installs packages from open-source community-driven channels such as `conda-forge`.
 ```Bash
+# If you don't already have conda on your system...
+# wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+
 conda install -c conda-forge cookiecutter # or...
 pip install -U cookiecutter
 ```

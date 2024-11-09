@@ -1,7 +1,6 @@
-name: {{ cookiecutter.module_slug }}
+name: module_base
 channels:
   - bioconda
-  - defaults
   - conda-forge
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
