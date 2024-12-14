@@ -43,7 +43,7 @@ cookiecutter https://github.com/MetaSUB-CAMP/CAMP_Module_Template
 3. Set up the module environment.
 
 ```Bash
-conda create -f configs/conda/module.yaml
+conda env create -f configs/conda/module.yaml
 conda activate module
 ```
 

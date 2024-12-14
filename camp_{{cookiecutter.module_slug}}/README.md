@@ -19,7 +19,7 @@ Add longer description of your workflow's algorithmic contents
 
 ## Installation
 
-1. Clone repo from [Github](<https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}). 
+1. Clone repo from [Github](https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}).
 ```Bash
 git clone https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}
 ```
@@ -146,7 +146,7 @@ python3 /path/to/camp_{{ cookiecutter.module_slug }}/workflow/{{ cookiecutter.mo
 
 ## Credits
 
-- This package was created with [Cookiecutter](https://github.com/cookiecutter/cookiecutter>) as a simplified version of the [project template](https://github.com/audreyr/cookiecutter-pypackage>).
+- This package was created with [Cookiecutter](https://github.com/cookiecutter/cookiecutter) as a simplified version of the [project template](https://github.com/audreyr/cookiecutter-pypackage).
 {% if is_open_source %} 
 - Free software: {{ cookiecutter.open_source_license }} License
 - Documentation: https://camp-documentation.readthedocs.io/en/latest/{{ cookiecutter.module_slug }}.html
