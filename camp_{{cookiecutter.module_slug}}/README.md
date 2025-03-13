@@ -44,7 +44,7 @@ source ~/.zshrc   # For zsh users
 
 1. Clone repo from [Github](<https://github.com/Meta-CAMP/camp_{{ cookiecutter.module_slug }}). 
 ```Bash
-git clone https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}
+git clone https://github.com/Meta-CAMP/camp_{{ cookiecutter.module_slug }}
 ```
 
 2. Set up the conda environment (contains Snakemake, Click, and other essentials) using `configs/conda/{{ cookiecutter.module_slug }}.yaml`. 
