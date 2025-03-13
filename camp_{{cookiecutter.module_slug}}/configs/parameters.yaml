@@ -1,11 +1,15 @@
 #'''Parameters config.'''#
 
+ext:             ''
+conda_prefix:    ''
+
 
 # --- general --- #
 
 some_constant:   2500
-
+database_1:      ''
 
 # --- first_rule --- #
 
-other_constant:    10000
+other_constant:  10000
+database_2:      ''

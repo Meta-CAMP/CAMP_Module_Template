@@ -19,7 +19,30 @@ Add longer description of your workflow's algorithmic contents
 
 ## Installation
 
-1. Clone repo from [Github](<https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}). 
+> [!TIP]
+> All databases used in CAMP modules will also be available for download on Zenodo (link TBD).
+
+### Install `conda`
+
+If you don't already have `conda` handy, we recommend installing `miniforge`, which is a minimal conda installer that, by default, installs packages from open-source community-driven channels such as `conda-forge`.
+```Bash
+# If you don't already have conda on your system...
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+```
+
+Run the following command to initialize Conda for your shell. This will configure your shell to recognize conda activate. 
+```Bash
+conda init
+```
+
+Restart your terminal or run:
+```Bash
+source ~/.bashrc  # For bash users
+source ~/.zshrc   # For zsh users
+```
+### Setting up the {{ cookiecutter.module_name }} Module
+
+1. Clone repo from [Github](<https://github.com/Meta-CAMP/camp_{{ cookiecutter.module_slug }}). 
 ```Bash
 git clone https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}
 ```
@@ -28,16 +51,20 @@ git clone https://github.com/MetaSUB-CAMP/camp_{{ cookiecutter.module_slug }}
 
 If you don't already have `conda` handy, we recommend installing `miniforge`, which is a minimal conda installer that, by default, installs packages from open-source community-driven channels such as `conda-forge`.
 ```Bash
-# If you don't already have conda on your system...
-# wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-
 # Create and activate conda environment 
 cd camp_{{ cookiecutter.module_slug }}
 conda env create -f configs/conda/{{ cookiecutter.module_slug }}.yaml
 conda activate {{ cookiecutter.module_slug }}
 ```
 
-3. Update the relevant parameters (if applicable- for example, location of external non-conda tools) in `test_data/parameters.yaml`.
+3. Set up the rest of the module interactively by running `setup.sh`. This step downloads databases (<!---Fill in database names here--->) and installs the other conda environments needed for running the module. This is done interactively by running `setup.sh`. `setup.sh` also generates `parameters.yaml` based on user input paths for running this module.
+```Bash
+source setup.sh
+
+# If you encounter issues where conda activate is not recognized, follow these steps to properly initialize Conda
+conda init
+source ~/.bashrc # or source ~/.zshrc
+```
 
 4. Make sure the installed pipeline works correctly. 
 <!--- 

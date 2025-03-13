@@ -125,3 +125,6 @@ dmypy.json
 
 # Random 
 *.DS_Store
+
+# IntelliJ Idea family of suites
+.idea
