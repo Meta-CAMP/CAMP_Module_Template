@@ -60,8 +60,15 @@ show_welcome() {
 }
 
 # Check to see if the required conda environments have already been installed 
-check_conda_env() {
-    conda env list | awk '{print $NF}' | grep -qx "$DEFAULT_CONDA_ENV_DIR/$1"
+find_install_conda_env() {
+    check_conda_env=$(conda env list | awk '{print $NF}' | grep -qx "$DEFAULT_CONDA_ENV_DIR/$1")
+    if check_conda_env; then
+        echo "✅ $2 environment is already installed in $DEFAULT_CONDA_ENV_DIR."
+    else
+        echo "🚀 Installing $2 in $DEFAULT_CONDA_ENV_DIR/$1..."
+        conda env create --file configs/conda/$1.yaml --prefix "$DEFAULT_CONDA_ENV_DIR/$1"
+        echo "✅ $2 installed successfully!"
+    fi
 }
 
 # Ask user if each database is already installed or needs to be installed
@@ -150,23 +157,9 @@ echo "Working directory set to: $SETUP_WORK_DIR"
 cd $MODULE_WORK_DIR
 DEFAULT_CONDA_ENV_DIR=$(conda env list | grep {{ cookiecutter.module_slug }} | awk '{print $NF}' | sed 's|/{{ cookiecutter.module_slug }}||')
 
-# Check for algorithm 1-specific environment
-if check_conda_env "algorithm_1"; then
-    echo "✅ Algorithm 1-specific environment is already installed in $DEFAULT_CONDA_ENV_DIR."
-else
-    echo "🚀 Installing Algorithm_1 in $DEFAULT_CONDA_ENV_DIR/algorithm_1..."
-    conda env create --file configs/conda/algorithm_1.yaml --prefix "$DEFAULT_CONDA_ENV_DIR/algorithm_1"
-    echo "✅ Algorithm_1 installed successfully!"
-fi
-
-# Check for algorithm 2-specific environment
-if check_conda_env "algorithm_2"; then
-    echo "✅ Algorithm 2-specific environment is already installed in $DEFAULT_CONDA_ENV_DIR."
-else
-    echo "🚀 Installing Algorithm_2 in $DEFAULT_CONDA_ENV_DIR/algorithm_2..."
-    conda env create --file configs/conda/algorithm_2.yaml --prefix "$DEFAULT_CONDA_ENV_DIR/algorithm_2"
-    echo "✅ Algorithm_2 installed successfully!"
-fi
+# Find or install all auxiliary conda environments
+find_install_conda_env "algorithm_1" "Algorithm 1"
+find_install_conda_env "algorithm_2" "Algorithm 2"
 
 # --- Download databases ---
 
