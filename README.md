@@ -1,6 +1,6 @@
 # CAMP Module Template
 
-[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.8.2-brightgreen)
+[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.8.3-brightgreen)
 
 ## Overview
 
