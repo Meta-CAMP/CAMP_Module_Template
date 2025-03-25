@@ -48,8 +48,6 @@ git clone https://github.com/Meta-CAMP/camp_{{ cookiecutter.module_slug }}
 ```
 
 2. Set up the conda environment (contains Snakemake, Click, and other essentials) using `configs/conda/{{ cookiecutter.module_slug }}.yaml`. 
-
-If you don't already have `conda` handy, we recommend installing `miniforge`, which is a minimal conda installer that, by default, installs packages from open-source community-driven channels such as `conda-forge`.
 ```Bash
 # Create and activate conda environment 
 cd camp_{{ cookiecutter.module_slug }}
