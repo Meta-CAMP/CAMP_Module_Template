@@ -5,7 +5,7 @@ from contextlib import redirect_stderr
 import os
 from os.path import abspath, basename, dirname, join
 import pandas as pd
-from shutil import copy
+import shutil
 from utils import Workflow_Dirs, ingest_samples
 
 
