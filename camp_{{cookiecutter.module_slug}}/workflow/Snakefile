@@ -5,7 +5,7 @@ from contextlib import redirect_stderr
 import os
 from os.path import abspath, basename, dirname, join
 import pandas as pd
-from shutil import copy
+import shutil
 from utils import Workflow_Dirs, ingest_samples
 
 
@@ -18,7 +18,7 @@ SAMPLES = ingest_samples(config['samples'], dirs.TMP)
 
 
 # Specify the location of any external resources and scripts
-dirs_ext = join(dirname(abspath(__file__)), 'ext')
+dirs_ext = config['ext']
 dirs_scr = join(dirs_ext, 'scripts')
 
 

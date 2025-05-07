@@ -59,16 +59,25 @@ show_welcome() {
 
 }
 
+# Check to see if the base CAMP environment has already been installed 
+find_install_camp_env() {
+    if conda env list | grep -q "$DEFAULT_CONDA_ENV_DIR/camp"; then 
+        echo "✅ The main CAMP environment is already installed in $DEFAULT_CONDA_ENV_DIR."
+    else
+        echo "🚀 Installing the main CAMP environment in $DEFAULT_CONDA_ENV_DIR/..."
+        conda create --prefix "$DEFAULT_CONDA_ENV_DIR/camp" -c conda-forge -c bioconda biopython blast bowtie2 bumpversion click click-default-group cookiecutter jupyter matplotlib numpy pandas samtools scikit-learn scipy seaborn snakemake umap-learn upsetplot
+        echo "✅ The main CAMP environment has been installed successfully!"
+    fi
+}
+
 # Check to see if the required conda environments have already been installed 
 find_install_conda_env() {
-    check_conda_env=$(conda env list | awk '{print $NF}' | grep -qx "$DEFAULT_CONDA_ENV_DIR/$1")
-    if check_conda_env; then
-        echo "✅ $2 environment is already installed in $DEFAULT_CONDA_ENV_DIR."
+    if conda env list | grep -q "$DEFAULT_CONDA_ENV_DIR/$1"; then
+        echo "✅ The $1 environment is already installed in $DEFAULT_CONDA_ENV_DIR."
     else
-        echo "🚀 Installing $2 in $DEFAULT_CONDA_ENV_DIR/$1..."
-        conda env create --file configs/conda/$1.yaml --prefix "$DEFAULT_CONDA_ENV_DIR/$1"
-        echo "✅ $2 installed successfully!"
-    fi
+        echo "🚀 Installing $1 in $DEFAULT_CONDA_ENV_DIR/$1..."
+        conda create --prefix $DEFAULT_CONDA_ENV_DIR/$1 -c conda-forge -c bioconda $1
+        echo "✅ $1 installed successfully!"
 }
 
 # Ask user if each database is already installed or needs to be installed
@@ -148,18 +157,22 @@ show_welcome
 
 # Set working directories
 MODULE_WORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-read -p "Enter the working directory (Press Enter for default: $MODULE_WORK_DIR): " USER_WORK_DIR
-SETUP_WORK_DIR="$(realpath "${USER_WORK_DIR:-$MODULE_WORK_DIR}")"
-echo "Working directory set to: $SETUP_WORK_DIR"
 
 # --- Install conda environments ---
 
 cd $MODULE_WORK_DIR
-DEFAULT_CONDA_ENV_DIR=$(conda env list | grep {{ cookiecutter.module_slug }} | awk '{print $NF}' | sed 's|/{{ cookiecutter.module_slug }}||')
+DEFAULT_CONDA_ENV_DIR=$(which -a conda | tail -1 | awk -F'/' 'BEGIN{OFS="/"}{$(NF-1)="";NF--;print}')envs
 
-# Find or install all auxiliary conda environments
-find_install_conda_env "algorithm_1" "Algorithm 1"
-find_install_conda_env "algorithm_2" "Algorithm 2"
+# Find or install...
+
+# ...module environment
+find_install_camp_env
+
+# ...auxiliary environments
+MODULE_PKGS=('') # Add any additional conda packages here
+for m in "${MODULE_PKGS[@]}"; do
+    find_install_conda_env "$m"
+done
 
 # --- Download databases ---
 
