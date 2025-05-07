@@ -47,15 +47,7 @@ source ~/.zshrc   # For zsh users
 git clone https://github.com/Meta-CAMP/camp_{{ cookiecutter.module_slug }}
 ```
 
-2. Set up the conda environment (contains Snakemake, Click, and other essentials) using `configs/conda/{{ cookiecutter.module_slug }}.yaml`. 
-```Bash
-# Create and activate conda environment 
-cd camp_{{ cookiecutter.module_slug }}
-conda env create -f configs/conda/{{ cookiecutter.module_slug }}.yaml
-conda activate {{ cookiecutter.module_slug }}
-```
-
-3. Set up the rest of the module interactively by running `setup.sh`. This step downloads databases (<!---Fill in database names here--->) and installs the other conda environments needed for running the module. This is done interactively by running `setup.sh`. `setup.sh` also generates `parameters.yaml` based on user input paths for running this module.
+2. Set up the rest of the module interactively by running `setup.sh`. This step downloads databases (<!---Fill in database names here--->) and installs the other conda environments needed for running the module. This is done interactively by running `setup.sh`. `setup.sh` also generates `parameters.yaml` based on user input paths for running this module.
 ```Bash
 source setup.sh
 
@@ -70,6 +62,7 @@ Add runtime information of the module on the test dataset here. For example: Wit
 --->
 ```Bash
 # Run tests on the included sample dataset
+conda activate camp
 python /path/to/camp_{{ cookiecutter.module_slug }}/workflow/{{ cookiecutter.module_slug }}.py test
 ```
 
