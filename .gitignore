@@ -103,3 +103,4 @@ cookiecutter-pypackage-env/
 
 # Random
 *.DS_Store
+*..bfg-report/

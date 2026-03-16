@@ -1,6 +1,6 @@
 # CAMP Module Template
 
-[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.9.0-brightgreen)
+[![Documentation Status](https://img.shields.io/readthedocs/camp_module_template)](https://camp-documentation.readthedocs.io/en/latest/) ![Version](https://img.shields.io/badge/version-0.10.0-brightgreen)
 
 ## Overview
 
@@ -37,7 +37,7 @@ pip install -U cookiecutter
 2. Use this template to generate a barebones CAMP analysis module and follow the prompts.
 
 ```Bash
-cookiecutter https://github.com/MetaSUB-CAMP/CAMP_Module_Template
+cookiecutter https://github.com/Meta--CAMP/CAMP_Module_Template
 ```
 
 3. Set up the module environment.
@@ -84,7 +84,7 @@ conda activate module
 
 ### Part 5: Write Documentation and Debug Module
 
-1. Add your module's basic installation and running instructions to the `README.md`. Then, add complete documentation to the [CAMP documentation repo](https://github.com/MetaSUB-CAMP/camp-documentation).
+1. Add your module's basic installation and running instructions to the `README.md`. Then, add complete documentation to the [CAMP documentation repo](https://github.com/Meta--CAMP/camp-documentation).
 
 2. Make the default conda environment, and after setting the appropriate input from `test_data/` in `test_data/samples.csv`, and parameters/resources in `test_data/parameters.yaml` and `test_data/resources.yaml` respectively, run the module once through to make sure everything works. 
     - If none of the test data available is appropriate, please contact us so we can coordinate the addition of new tst data. 

@@ -1,7 +1,7 @@
 {
-    "full_name": "Lauren Mak",
-    "email": "laurenmak93@gmail.com",
-    "github_username": "lauren-mak",
+    "full_name": "Your Name",
+    "email": "youremail@gmail.com",
+    "github_username": "your-github-username",
     "module_name": "Binning",
     "module_slug": "{{ cookiecutter.module_name.lower().replace(' ', '_') }}",
     "module_short_description": "The CAMP binning pipeline replicates the functionality of MetaWRAP (one of the original ensemble `binning methods <https://github.com/bxlab/metaWRAP>`_) with i) better dependency conflict management and ii) improved integration with new binning algorithms.",

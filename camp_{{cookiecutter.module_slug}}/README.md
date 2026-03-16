@@ -2,10 +2,6 @@
 
 # CAMP {{ cookiecutter.module_name }}
 
-{% if is_open_source %}
-[![Documentation Status](https://img.shields.io/readthedocs/camp_{{ cookiecutter.module_slug }})](https://camp-documentation.readthedocs.io/en/latest/{{ cookiecutter.module_slug }}.html) 
-{%- endif %}
-
 ![Version](https://img.shields.io/badge/version-{{ cookiecutter.version }}-brightgreen)
 
 ## Overview
@@ -109,6 +105,7 @@ To run CAMP on the command line, use the following, where `/path/to/work/dir` is
     - Relative or absolute paths to the Snakefile and/or the working directory (if you're running elsewhere) are accepted!
     - The parameters and resource config YAMLs can also be customized.
 ```Bash
+conda activate camp
 python /path/to/camp_{{ cookiecutter.module_slug }}/workflow/{{ cookiecutter.module_slug }}.py \
     (-c number_of_cores_allocated) \
     (-p /path/to/parameters.yaml) \
@@ -123,6 +120,7 @@ To run CAMP on a job submission cluster (for now, only Slurm is supported), use 
     - `--slurm` is an optional flag that submits all rules in the Snakemake pipeline as `sbatch` jobs. 
     - In Slurm mode, the `-c` flag refers to the maximum number of `sbatch` jobs submitted in parallel, **not** the pool of cores available to run the jobs. Each job will request the number of cores specified by threads in `configs/resources/slurm.yaml`.
 ```Bash
+conda activate camp
 sbatch -J jobname -o jobname.log << "EOF"
 #!/bin/bash
 python /path/to/camp_{{ cookiecutter.module_slug }}/workflow/{{ cookiecutter.module_slug }}.py --slurm \
@@ -141,10 +139,9 @@ EOF
     - I recommend creating a new directory, which I've called `/path/to/work/dir/short_read_qc/5_retrimming` and placing reprocessed reads inside them. 
     - Afterwards, I reran FastQC and MultiQC and collated summary statistics (ex. numbers of reads, etc.) from the reprocessed datasets manually. I also updated the location of the reprocessed reads in `/path/to/work/dir/short_read_qc/final_reports/samples.csv` to `/path/to/work/dir/short_read_qc/5_retrimming`.
 
-2. To plot grouped bar graph(s) of the number of reads and bases remaining after each quality control step in each sample, set up the dataviz environment and follow the instructions in the Jupyter notebook:
+2. To plot grouped bar graph(s) of the number of reads and bases remaining after each quality control step in each sample, and follow the instructions in the Jupyter notebook:
 ```Bash
-conda env create -f configs/conda/dataviz.yaml
-conda activate dataviz
+conda activate camp
 jupyter notebook &
 ```
 

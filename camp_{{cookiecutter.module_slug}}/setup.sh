@@ -65,7 +65,7 @@ find_install_camp_env() {
         echo "✅ The main CAMP environment is already installed in $DEFAULT_CONDA_ENV_DIR."
     else
         echo "🚀 Installing the main CAMP environment in $DEFAULT_CONDA_ENV_DIR/..."
-        conda create --prefix "$DEFAULT_CONDA_ENV_DIR/camp" -c conda-forge -c bioconda biopython blast bowtie2 bumpversion click click-default-group cookiecutter jupyter matplotlib numpy pandas samtools scikit-learn scipy seaborn snakemake umap-learn upsetplot
+        conda create --prefix "$DEFAULT_CONDA_ENV_DIR/camp" -c conda-forge -c bioconda biopython blast bowtie2 bumpversion click click-default-group cookiecutter jupyter matplotlib numpy pandas samtools scikit-learn scipy seaborn snakemake=7.32.4 umap-learn upsetplot
         echo "✅ The main CAMP environment has been installed successfully!"
     fi
 }
@@ -84,17 +84,16 @@ find_install_conda_env() {
 ask_database() {
     local DB_NAME="$1"
     local DB_VAR_NAME="$2"
-    local DB_HINT="$3"
     local DB_PATH=""
 
     echo "🛠️  Checking for $DB_NAME database..."
 
     while true; do
-        read -p "❓ Do you already have $DB_NAME installed? (y/n): " RESPONSE
+        read -p "❓ Do you already have the $DB_NAME database installed? (y/n): " RESPONSE
         case "$RESPONSE" in
             [Yy]* )
                 while true; do
-                    read -p "📂 Enter the path to your existing $DB_NAME database (eg. $DB_HINT): " DB_PATH
+                    read -p "📂 Enter the path to your existing $DB_NAME database (eg. /path/to/database_storage): " DB_PATH
                     if [[ -d "$DB_PATH" || -f "$DB_PATH" ]]; then
                         DATABASE_PATHS[$DB_VAR_NAME]="$DB_PATH"
                         echo "✅ $DB_NAME path set to: $DB_PATH"
@@ -103,22 +102,19 @@ ask_database() {
                         echo "⚠️ The provided path does not exist or is empty. Please check and try again."
                         read -p "Do you want to re-enter the path (r) or install $DB_NAME instead (i)? (r/i): " RETRY
                         if [[ "$RETRY" == "i" ]]; then
-                            break  # Exit inner loop to start installation
+                            break  # Exit outer loop to start installation
                         fi
                     fi
                 done
-                if [[ "$RETRY" == "i" ]]; then
-                    break  # Exit outer loop to install the database
-                fi
                 ;;
             [Nn]* )
-                read -p "📂 Enter the directory where you want to install $DB_NAME: " DB_PATH
-                install_database "$DB_NAME" "$DB_VAR_NAME" "$DB_PATH"
-                return  # Exit function after installation
-                ;;
+                break # Exit outer loop to start installation
+                ;; 
             * ) echo "⚠️ Please enter 'y(es)' or 'n(o)'.";;
         esac
     done
+    read -p "📂 Enter the directory where you want to install $DB_NAME: " DB_PATH
+    install_database "$DB_NAME" "$DB_VAR_NAME" "$DB_PATH"
 }
 
 # Install databases in the specified directory
@@ -161,7 +157,7 @@ MODULE_WORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # --- Install conda environments ---
 
 cd $MODULE_WORK_DIR
-DEFAULT_CONDA_ENV_DIR=$(which -a conda | tail -1 | awk -F'/' 'BEGIN{OFS="/"}{$(NF-1)="";NF--;print}')envs
+DEFAULT_CONDA_ENV_DIR=$(conda info --base)/envs
 
 # Find or install...
 
@@ -186,28 +182,29 @@ declare -A DB_SUBDIRS=(
 declare -A DATABASE_PATHS
 
 # Ask for all required databases
-ask_database "Database_1" "DATABASE_1_PATH" "/path/to/database_storage/"
-ask_database "Database_2" "DATABASE_2_PATH" "/path/to/database_storage/"
+ask_database "Database_1" "DATABASE_1_PATH"
+ask_database "Database_2" "DATABASE_2_PATH"
 
 echo "✅ Database and environment setup complete!"
 
 # --- Generate parameter configs ---
 
-# Create test_data/parameters.yaml
-PARAMS_FILE="$MODULE_WORK_DIR/test_data/parameters.yaml" 
-
-echo "🚀 Generating test_data/parameters.yaml in $PARAMS_FILE ..."
-
 # Default values for analysis parameters
+EXT_PATH="$MODULE_WORK_DIR/workflow/ext"  # Assuming extensions are in workflow/ext
 SOME_CONSTANT=100
 OTHER_CONSTANT=1000
 
 # Use existing paths from DATABASE_PATHS
 DATABASE_1="${DATABASE_PATHS[DATABASE_1_PATH]}"
 DATABASE_2="${DATABASE_PATHS[DATABASE_2_PATH]}"
-EXT_PATH="$MODULE_WORK_DIR/workflow/ext"  # Assuming extensions are in workflow/ext
+
+echo "🚀 Generating parameter configs ..."
 
 # Create test_data/parameters.yaml
+PARAMS_FILE="$MODULE_WORK_DIR/test_data/parameters.yaml" 
+# Remove existing parameters.yaml if present
+[ -f "$PARAMS_FILE" ] && rm "$PARAMS_FILE"
+
 cat <<EOL > "$PARAMS_FILE"
 #'''Parameters config.'''#
 
@@ -227,7 +224,7 @@ other_constant:  '$OTHER_CONSTANT'
 database_2:      '$DATABASE_2'
 EOL
 
-echo "✅ Test data configuration file created at: $PARAMS_FILE"
+echo "✅ Test data parameter configuration file created at: $PARAMS_FILE"
  
 # Create configs/parameters.yaml 
 PARAMS_FILE="$MODULE_WORK_DIR/configs/parameters.yaml"
@@ -268,5 +265,5 @@ EOL
 
 echo "✅ Test data input CSV created at: $INPUT_CSV"
 
-echo "🎯 Setup complete! You can now test the workflow using `python $MODULE_WORK_DIR/workflow/{{ cookiecutter.module_slug }}.py test`"
+echo "🎯 Setup complete! You can now test the workflow using \`python $MODULE_WORK_DIR/workflow/{{ cookiecutter.module_slug }}.py test\`"
 
