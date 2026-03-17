@@ -84,16 +84,17 @@ find_install_conda_env() {
 ask_database() {
     local DB_NAME="$1"
     local DB_VAR_NAME="$2"
+    local DB_HINT="$3"
     local DB_PATH=""
 
     echo "🛠️  Checking for $DB_NAME database..."
 
     while true; do
-        read -p "❓ Do you already have the $DB_NAME database installed? (y/n): " RESPONSE
+        read -p "❓ Do you already have $DB_NAME installed? (y/n): " RESPONSE
         case "$RESPONSE" in
             [Yy]* )
                 while true; do
-                    read -p "📂 Enter the path to your existing $DB_NAME database (eg. /path/to/database_storage): " DB_PATH
+                    read -p "📂 Enter the path to your existing $DB_NAME database (eg. $DB_HINT): " DB_PATH
                     if [[ -d "$DB_PATH" || -f "$DB_PATH" ]]; then
                         DATABASE_PATHS[$DB_VAR_NAME]="$DB_PATH"
                         echo "✅ $DB_NAME path set to: $DB_PATH"
@@ -102,19 +103,22 @@ ask_database() {
                         echo "⚠️ The provided path does not exist or is empty. Please check and try again."
                         read -p "Do you want to re-enter the path (r) or install $DB_NAME instead (i)? (r/i): " RETRY
                         if [[ "$RETRY" == "i" ]]; then
-                            break  # Exit outer loop to start installation
+                            break  # Exit inner loop to start installation
                         fi
                     fi
                 done
+                if [[ "$RETRY" == "i" ]]; then
+                    break  # Exit outer loop to install the database
+                fi
                 ;;
             [Nn]* )
-                break # Exit outer loop to start installation
-                ;; 
+                read -p "📂 Enter the directory where you want to install $DB_NAME: " DB_PATH
+                install_database "$DB_NAME" "$DB_VAR_NAME" "$DB_PATH"
+                return  # Exit function after installation
+                ;;
             * ) echo "⚠️ Please enter 'y(es)' or 'n(o)'.";;
         esac
     done
-    read -p "📂 Enter the directory where you want to install $DB_NAME: " DB_PATH
-    install_database "$DB_NAME" "$DB_VAR_NAME" "$DB_PATH"
 }
 
 # Install databases in the specified directory
@@ -201,7 +205,7 @@ DATABASE_2="${DATABASE_PATHS[DATABASE_2_PATH]}"
 echo "🚀 Generating parameter configs ..."
 
 # Create test_data/parameters.yaml
-PARAMS_FILE="$MODULE_WORK_DIR/test_data/parameters.yaml" 
+PARAMS_FILE="$MODULE_WORK_DIR/test_data/parameters.yaml"
 # Remove existing parameters.yaml if present
 [ -f "$PARAMS_FILE" ] && rm "$PARAMS_FILE"
 
